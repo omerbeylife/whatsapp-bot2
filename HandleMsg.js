@@ -1583,17 +1583,16 @@ break
         //Media 
         case 'ytmp3':
             case 'ytmp3':
-                if (args.length == 0) return aruga.reply(from, `Untuk mendownload lagu dari youtube\nketik: ${prefix}ytmp3 [link_yt]`, id)
-                const linkmp3 = args[0].replace('https://youtu.be/','').replace('https://www.youtube.com/watch?v=','')
-                rugaapi.ytmp3(`https://youtu.be/${linkmp3}`)
-                .then(async(res) => {
-                    await aruga.sendFileFromUrl(from, `${res.thumb}`, 'image.jpg', `*「 YOUTUBE MP3 」*\n\n*Judul :* ${res.title}\n*Execute :* ${res.ext}\n\n*_Sabar, Urbae lagi ngirim Audionya_*`, id)
-                    await aruga.sendFileFromUrl(from, `${res.result}`, '', id)
-                    .catch(() => {
-                aruga.reply(from, `Error ngab`, id)
-            })
-                })
-                break
+                if (args.length == 0) return aruga.reply(from, `For download audio from youtube\ntype: ${prefix}ytmp3 [link_yt]`, id)
+                axios.get(`https://api.vhtear.com/ytdl?link=${body.slice(7)}&apikey=${vhtearkey}`
+			  .then(async (res) => {
+			await aruga.sendFileFromUrl(from, `${res.data.result.imgUrl}`, 'image.jpg', `*「 YOUTUBE MP3 」*\n\n*Title :* ${res.data.result.title}\n*Size :* ${res.data.result.size}\n\n*_Wait for Bot Sending Audio_*`, id)
+			await aruga.sendFileFromUrl(from, `${res.data.result.UrlMp3}`, `${res.data.result.title}.mp3`, '', id)
+			.catch(() => {
+				aruga.reply(from, `Sorry we have problem for this`, id)
+			})
+		})
+			  break
             case 'jadwalbola':
                 if (!isGroupMsg) return aruga.reply(from, `Perintah ini hanya bisa di gunakan dalam group!`, id)
             aruga.reply(from, mess.wait, id)
