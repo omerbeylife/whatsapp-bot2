@@ -62,7 +62,7 @@ const start = (aruga = new Client()) => {
 
     aruga.onIncomingCall(async (callData) => {
         // ketika seseorang menelpon nomor bot akan mengirim pesan
-        await aruga.sendText(callData.peerJid, 'Maaf sedang tidak bisa menerima panggilan.\n\n-bot')
+        await aruga.sendText(callData.peerJid, 'Beni aradığın için seni engelledim.Çünkü aramalar çalışma hızımı yavaşlatıyor. Eğer yanlışlıkla aradıysan lütfen benimle iletişime geç\n t.me/adriyanarobot')
         .then(async () => {
             // bot akan memblock nomor itu
             await aruga.contactBlock(callData.peerJid)
